@@ -1,0 +1,5 @@
+Gate area 0.7980 um^2
+Level 0 Module DLX_ADDR_SIZE32_DATA_SIZE32_IR_SIZE32_OPC_SIZE6_REGADDR_SIZE5_STACKBUS_WIDTH4 Gates=     78311 Cells=   36262 Area=   62492.4 um^2
+Level 1 Module DLX_Datapath/ArithLogUnit/ALU_shift/sra_39 Gates=348        Cells=275      Area=     278.0 um^2
+Level 1 Module DLX_Datapath/ArithLogUnit/ALU_shift/srl_39 Gates=331        Cells=260      Area=     264.1 um^2
+Level 1 Module DLX_Datapath/ArithLogUnit/ALU_shift/sll_39 Gates=346        Cells=176      Area=     276.6 um^2

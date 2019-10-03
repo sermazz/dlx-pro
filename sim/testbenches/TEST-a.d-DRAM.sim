@@ -1,0 +1,60 @@
+#########################################################################################
+##
+##					DLX ARCHITECTURE - Custom Implementation (PRO version)
+##								Politecnico di Torino
+##						  Microelectronic Systems, A.Y. 2018/19
+##							  Prof. Mariagrazia Graziano
+##
+## Author: Sergio Mazzola
+## Contact: s.mazzola@outlook.com
+## 
+## File: testbenches\TEST-a.d-DRAM.sim
+## Date: September 2019
+## Brief: ModelSim script for Data Memory compilation and simulation
+##
+#########################################################################################
+
+set projDir {C:/Users/sergi/OneDrive - Politecnico di Torino/Documents/Università/Computer Engineering - PoliTo/Corsi/Microelectronic Systems/Laboratorio/DLX (Git)/dlx_project}
+set srcDir "${projDir}/src"
+set simDir "${projDir}/sim"
+
+vcom -reportprogress 300 -work work "${srcDir}/000-functions.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/001-globals.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.d-DRAM.vhd"
+vcom -reportprogress 300 -work work "${simDir}/testbenches/TEST-a.d-DRAM.vhd"
+vsim -t 100ps work.test_dlx_dram
+
+onerror {resume}
+quietly WaveActivateNextPane {} 0
+add wave -noupdate /dlx_dram_test/Clock
+add wave -noupdate /dlx_dram_test/Reset
+add wave -noupdate /dlx_dram_test/Wr_en_s
+add wave -noupdate /dlx_dram_test/Wr_byte_s
+add wave -noupdate /dlx_dram_test/Addr_s
+add wave -noupdate /dlx_dram_test/Din_s
+add wave -noupdate -divider {Read outputs}
+add wave -noupdate -color {Cornflower Blue} /dlx_dram_test/Dout_w_s
+add wave -noupdate -color {Cornflower Blue} /dlx_dram_test/Dout_hw_s
+add wave -noupdate -color {Cornflower Blue} /dlx_dram_test/Dout_b_s
+add wave -noupdate -divider {Memory content}
+add wave -noupdate -color Orange -expand -subitemconfig {/dlx_dram_test/dut/DRAM_mem(0) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(1) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(2) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(3) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(4) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(5) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(6) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(7) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(8) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(9) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(10) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(11) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(12) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(13) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(14) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(15) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(16) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(17) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(18) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(19) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(20) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(21) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(22) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(23) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(24) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(25) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(26) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(27) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(28) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(29) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(30) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(31) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(32) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(33) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(34) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(35) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(36) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(37) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(38) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(39) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(40) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(41) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(42) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(43) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(44) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(45) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(46) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(47) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(48) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(49) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(50) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(51) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(52) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(53) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(54) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(55) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(56) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(57) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(58) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(59) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(60) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(61) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(62) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(63) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(64) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(65) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(66) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(67) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(68) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(69) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(70) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(71) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(72) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(73) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(74) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(75) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(76) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(77) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(78) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(79) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(80) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(81) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(82) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(83) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(84) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(85) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(86) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(87) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(88) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(89) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(90) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(91) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(92) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(93) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(94) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(95) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(96) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(97) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(98) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(99) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(100) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(101) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(102) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(103) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(104) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(105) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(106) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(107) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(108) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(109) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(110) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(111) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(112) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(113) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(114) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(115) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(116) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(117) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(118) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(119) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(120) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(121) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(122) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(123) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(124) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(125) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(126) {-color Orange -height 15} /dlx_dram_test/dut/DRAM_mem(127) {-color Orange -height 15}} /dlx_dram_test/dut/DRAM_mem
+add wave -noupdate -color Orange /dlx_dram_test/dut/nextValue
+TreeUpdate [SetDefaultTree]
+WaveRestoreCursors {{Cursor 1} {16900 ps} 0}
+quietly wave cursor active 1
+configure wave -namecolwidth 251
+configure wave -valuecolwidth 100
+configure wave -justifyvalue left
+configure wave -signalnamewidth 0
+configure wave -snapdistance 10
+configure wave -datasetprefix 0
+configure wave -rowmargin 4
+configure wave -childrowmargin 2
+configure wave -gridoffset 0
+configure wave -gridperiod 1
+configure wave -griddelta 40
+configure wave -timeline 0
+configure wave -timelineunits ns
+update
+WaveRestoreZoom {0 ps} {18 ns}
+run 18 ns

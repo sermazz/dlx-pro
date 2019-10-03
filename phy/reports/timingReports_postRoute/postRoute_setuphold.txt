@@ -1,0 +1,23 @@
+
+--------------------- POST ROUTING
+
+HOLD
+Name:	all
+Total Path:	9343
+Passing Path:	9252
+Failing Path:	91
+WNS:	-0.0180
+TNS:	-0.4480
+
+
+SETUP
+Name:	all
+Total Path:	8711
+Passing Path:	8711
+Failing Path:	0
+WNS:	0.0000
+TNS:	0.0000
+
+
+
+

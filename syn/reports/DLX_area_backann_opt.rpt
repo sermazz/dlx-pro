@@ -1,0 +1,28 @@
+ 
+****************************************
+Report : area
+Design : DLX_ADDR_SIZE32_DATA_SIZE32_IR_SIZE32_OPC_SIZE6_REGADDR_SIZE5_STACKBUS_WIDTH4
+Version: F-2011.09-SP3
+Date   : Sat Sep 14 21:57:16 2019
+****************************************
+
+Library(s) Used:
+
+    NangateOpenCellLibrary (File: /home/mariagrazia.graziano/do/libnangate/NangateOpenCellLibrary_typical_ecsm.db)
+
+Number of ports:                          447
+Number of nets:                         35734
+Number of cells:                        34111
+Number of combinational cells:          28786
+Number of sequential cells:              5320
+Number of macros:                           0
+Number of buf/inv:                       2543
+Number of references:                      33
+
+Combinational area:       33081.090508
+Noncombinational area:    30542.919223
+Net Interconnect area:      undefined  (Wire load has zero net area)
+
+Total cell area:          63624.009731
+Total area:                 undefined
+1

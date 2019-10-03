@@ -1,0 +1,68 @@
+#########################################################################################
+##
+##					DLX ARCHITECTURE - Custom Implementation (PRO version)
+##								Politecnico di Torino
+##						  Microelectronic Systems, A.Y. 2018/19
+##							  Prof. Mariagrazia Graziano
+##
+## Author: Sergio Mazzola
+## Contact: s.mazzola@outlook.com
+## 
+## File: testbenches\TEST-a.b-Datapath.core\TEST-b-BJ_Logic.sim
+## Date: August 2019
+## Brief: ModelSim script for Branch&Jump logic compilation and simulation
+##
+#########################################################################################
+
+set projDir {C:/Users/sergi/OneDrive - Politecnico di Torino/Documents/Università/Computer Engineering - PoliTo/Corsi/Microelectronic Systems/Laboratorio/DLX (Git)/dlx_project}
+set srcDir "${projDir}/src"
+set simDir "${projDir}/sim"
+
+vcom -work work -O0 "${srcDir}/000-functions.vhd"
+vcom -work work -O0 "${srcDir}/001-globals.vhd"
+vcom -work work -O0 "${srcDir}/a.b-DataPath.core/b-BJ_Logic.vhd"
+vcom -work work -O0 "${simDir}/testbenches/TEST-a.b-Datapath.core/TEST-b-BJ_Logic.vhd"
+
+vsim -gui -t 100ps work.test_dlx_bjlogic
+
+onerror {resume}
+quietly WaveActivateNextPane {} 0
+add wave -noupdate /dlx_bjlogic_test/Clock
+add wave -noupdate /dlx_bjlogic_test/Reset
+add wave -noupdate -radix ufixed /dlx_bjlogic_test/nextPC
+add wave -noupdate -color {Sea Green} -radix ufixed /dlx_bjlogic_test/PC_reg_s
+add wave -noupdate -color {Sea Green} -radix ufixed /dlx_bjlogic_test/PC_IFID_s
+add wave -noupdate -radix binary -radixshowbase 0 /dlx_bjlogic_test/nextFetch_opcode
+add wave -noupdate -color {Sea Green} -radix binary -radixshowbase 0 /dlx_bjlogic_test/Dout_opcode_s
+add wave -noupdate -color {Sea Green} -radix binary -radixshowbase 0 /dlx_bjlogic_test/IR_IFID_opcode_s
+add wave -noupdate /dlx_bjlogic_test/NPC_IFID_s
+add wave -noupdate /dlx_bjlogic_test/TA_IFID_s
+add wave -noupdate /dlx_bjlogic_test/RegA_s
+add wave -noupdate -divider Output
+add wave -noupdate /dlx_bjlogic_test/take_bj_s
+add wave -noupdate /dlx_bjlogic_test/flush_IFID_s
+add wave -noupdate /dlx_bjlogic_test/muxPC_SEL_s
+add wave -noupdate /dlx_bjlogic_test/correct_PC_s
+add wave -noupdate -divider Memory
+add wave -noupdate /dlx_bjlogic_test/dut/pred_mem(36)
+add wave -noupdate /dlx_bjlogic_test/dut/pred_mem(72)
+add wave -noupdate /dlx_bjlogic_test/dut/pred_mem
+TreeUpdate [SetDefaultTree]
+WaveRestoreCursors {{Cursor 1} {8200 ps} 0}
+quietly wave cursor active 1
+configure wave -namecolwidth 194
+configure wave -valuecolwidth 168
+configure wave -justifyvalue left
+configure wave -signalnamewidth 0
+configure wave -snapdistance 10
+configure wave -datasetprefix 0
+configure wave -rowmargin 4
+configure wave -childrowmargin 2
+configure wave -gridoffset 0
+configure wave -gridperiod 1
+configure wave -griddelta 40
+configure wave -timeline 0
+configure wave -timelineunits ns
+update
+WaveRestoreZoom {0 ps} {16 ns}
+run 40 ns

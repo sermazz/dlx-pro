@@ -1,0 +1,83 @@
+#########################################################################################
+##
+##					DLX ARCHITECTURE - Custom Implementation (PRO version)
+##								Politecnico di Torino
+##						  Microelectronic Systems, A.Y. 2018/19
+##							  Prof. Mariagrazia Graziano
+##
+## Author: Sergio Mazzola
+## Contact: s.mazzola@outlook.com
+## 
+## File: testbenches\TEST-a.b-Datapath.core\TEST-a-RegFile_Win.sim
+## Date: August 2019
+## Brief: ModelSim script for Windowed Register File compilation and simulation
+##
+#########################################################################################
+
+set projDir {C:/Users/sergi/OneDrive - Politecnico di Torino/Documents/Università/Computer Engineering - PoliTo/Corsi/Microelectronic Systems/Laboratorio/DLX (Git)/dlx_project}
+set srcDir "${projDir}/src"
+set simDir "${projDir}/sim"
+
+vcom -reportprogress 300 -work work "${srcDir}/000-functions.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/001-globals.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/a-RegFile_Win.vhd"
+vcom -reportprogress 300 -work work "${simDir}/testbenches/TEST-a.b-Datapath.core/TEST-a-RegFile_Win.vhd"
+
+vsim -gui -t 100ps work.tb_registerfile
+
+onerror {resume}
+quietly virtual signal -install /tb_registerfile { /tb_registerfile/RFtoSTACK(127 downto 96)} mem_bus_3
+quietly virtual signal -install /tb_registerfile { /tb_registerfile/RFtoSTACK(95 downto 64)} mem_bus_2
+quietly virtual signal -install /tb_registerfile { /tb_registerfile/RFtoSTACK(63 downto 32)} mem_bus_1
+quietly virtual signal -install /tb_registerfile { /tb_registerfile/RFtoSTACK(31 downto 0)} mem_bus_0
+quietly WaveActivateNextPane {} 0
+add wave -noupdate /tb_registerfile/CLK_s
+add wave -noupdate /tb_registerfile/RESET_S
+add wave -noupdate /tb_registerfile/mem_bus_3
+add wave -noupdate /tb_registerfile/mem_bus_2
+add wave -noupdate /tb_registerfile/mem_bus_1
+add wave -noupdate /tb_registerfile/mem_bus_0
+add wave -noupdate -color Orange -subitemconfig {/tb_registerfile/RF/phy_regfile(0) {-color Orange} /tb_registerfile/RF/phy_regfile(1) {-color Orange} /tb_registerfile/RF/phy_regfile(2) {-color Orange} /tb_registerfile/RF/phy_regfile(3) {-color Orange} /tb_registerfile/RF/phy_regfile(4) {-color Orange} /tb_registerfile/RF/phy_regfile(5) {-color Orange} /tb_registerfile/RF/phy_regfile(6) {-color Orange} /tb_registerfile/RF/phy_regfile(7) {-color Orange} /tb_registerfile/RF/phy_regfile(8) {-color Orange} /tb_registerfile/RF/phy_regfile(9) {-color Orange} /tb_registerfile/RF/phy_regfile(10) {-color Orange} /tb_registerfile/RF/phy_regfile(11) {-color Orange} /tb_registerfile/RF/phy_regfile(12) {-color Orange} /tb_registerfile/RF/phy_regfile(13) {-color Orange} /tb_registerfile/RF/phy_regfile(14) {-color Orange} /tb_registerfile/RF/phy_regfile(15) {-color Orange} /tb_registerfile/RF/phy_regfile(16) {-color Orange} /tb_registerfile/RF/phy_regfile(17) {-color Orange} /tb_registerfile/RF/phy_regfile(18) {-color Orange} /tb_registerfile/RF/phy_regfile(19) {-color Orange} /tb_registerfile/RF/phy_regfile(20) {-color Orange} /tb_registerfile/RF/phy_regfile(21) {-color Orange} /tb_registerfile/RF/phy_regfile(22) {-color Orange} /tb_registerfile/RF/phy_regfile(23) {-color Orange} /tb_registerfile/RF/phy_regfile(24) {-color Orange} /tb_registerfile/RF/phy_regfile(25) {-color Orange} /tb_registerfile/RF/phy_regfile(26) {-color Orange} /tb_registerfile/RF/phy_regfile(27) {-color Orange} /tb_registerfile/RF/phy_regfile(28) {-color Orange} /tb_registerfile/RF/phy_regfile(29) {-color Orange} /tb_registerfile/RF/phy_regfile(30) {-color Orange} /tb_registerfile/RF/phy_regfile(31) {-color Orange} /tb_registerfile/RF/phy_regfile(32) {-color Orange} /tb_registerfile/RF/phy_regfile(33) {-color Orange} /tb_registerfile/RF/phy_regfile(34) {-color Orange} /tb_registerfile/RF/phy_regfile(35) {-color Orange} /tb_registerfile/RF/phy_regfile(36) {-color Orange} /tb_registerfile/RF/phy_regfile(37) {-color Orange} /tb_registerfile/RF/phy_regfile(38) {-color Orange} /tb_registerfile/RF/phy_regfile(39) {-color Orange} /tb_registerfile/RF/phy_regfile(40) {-color Orange} /tb_registerfile/RF/phy_regfile(41) {-color Orange} /tb_registerfile/RF/phy_regfile(42) {-color Orange} /tb_registerfile/RF/phy_regfile(43) {-color Orange} /tb_registerfile/RF/phy_regfile(44) {-color Orange} /tb_registerfile/RF/phy_regfile(45) {-color Orange} /tb_registerfile/RF/phy_regfile(46) {-color Orange} /tb_registerfile/RF/phy_regfile(47) {-color Orange} /tb_registerfile/RF/phy_regfile(48) {-color Orange} /tb_registerfile/RF/phy_regfile(49) {-color Orange} /tb_registerfile/RF/phy_regfile(50) {-color Orange} /tb_registerfile/RF/phy_regfile(51) {-color Orange} /tb_registerfile/RF/phy_regfile(52) {-color Orange} /tb_registerfile/RF/phy_regfile(53) {-color Orange} /tb_registerfile/RF/phy_regfile(54) {-color Orange} /tb_registerfile/RF/phy_regfile(55) {-color Orange} /tb_registerfile/RF/phy_regfile(56) {-color Orange} /tb_registerfile/RF/phy_regfile(57) {-color Orange} /tb_registerfile/RF/phy_regfile(58) {-color Orange} /tb_registerfile/RF/phy_regfile(59) {-color Orange} /tb_registerfile/RF/phy_regfile(60) {-color Orange} /tb_registerfile/RF/phy_regfile(61) {-color Orange} /tb_registerfile/RF/phy_regfile(62) {-color Orange} /tb_registerfile/RF/phy_regfile(63) {-color Orange} /tb_registerfile/RF/phy_regfile(64) {-color Orange} /tb_registerfile/RF/phy_regfile(65) {-color Orange} /tb_registerfile/RF/phy_regfile(66) {-color Orange} /tb_registerfile/RF/phy_regfile(67) {-color Orange} /tb_registerfile/RF/phy_regfile(68) {-color Orange} /tb_registerfile/RF/phy_regfile(69) {-color Orange} /tb_registerfile/RF/phy_regfile(70) {-color Orange} /tb_registerfile/RF/phy_regfile(71) {-color Orange} /tb_registerfile/RF/phy_regfile(72) {-color Orange} /tb_registerfile/RF/phy_regfile(73) {-color Orange} /tb_registerfile/RF/phy_regfile(74) {-color Orange} /tb_registerfile/RF/phy_regfile(75) {-color Orange} /tb_registerfile/RF/phy_regfile(76) {-color Orange} /tb_registerfile/RF/phy_regfile(77) {-color Orange} /tb_registerfile/RF/phy_regfile(78) {-color Orange} /tb_registerfile/RF/phy_regfile(79) {-color Orange} /tb_registerfile/RF/phy_regfile(80) {-color Orange} /tb_registerfile/RF/phy_regfile(81) {-color Orange} /tb_registerfile/RF/phy_regfile(82) {-color Orange} /tb_registerfile/RF/phy_regfile(83) {-color Orange} /tb_registerfile/RF/phy_regfile(84) {-color Orange} /tb_registerfile/RF/phy_regfile(85) {-color Orange} /tb_registerfile/RF/phy_regfile(86) {-color Orange} /tb_registerfile/RF/phy_regfile(87) {-color Orange} /tb_registerfile/RF/phy_regfile(88) {-color Orange} /tb_registerfile/RF/phy_regfile(89) {-color Orange} /tb_registerfile/RF/phy_regfile(90) {-color Orange} /tb_registerfile/RF/phy_regfile(91) {-color Orange} /tb_registerfile/RF/phy_regfile(92) {-color Orange} /tb_registerfile/RF/phy_regfile(93) {-color Orange} /tb_registerfile/RF/phy_regfile(94) {-color Orange} /tb_registerfile/RF/phy_regfile(95) {-color Orange} /tb_registerfile/RF/phy_regfile(96) {-color Orange} /tb_registerfile/RF/phy_regfile(97) {-color Orange} /tb_registerfile/RF/phy_regfile(98) {-color Orange} /tb_registerfile/RF/phy_regfile(99) {-color Orange} /tb_registerfile/RF/phy_regfile(100) {-color Orange} /tb_registerfile/RF/phy_regfile(101) {-color Orange} /tb_registerfile/RF/phy_regfile(102) {-color Orange} /tb_registerfile/RF/phy_regfile(103) {-color Orange} /tb_registerfile/RF/phy_regfile(104) {-color Orange} /tb_registerfile/RF/phy_regfile(105) {-color Orange} /tb_registerfile/RF/phy_regfile(106) {-color Orange} /tb_registerfile/RF/phy_regfile(107) {-color Orange} /tb_registerfile/RF/phy_regfile(108) {-color Orange} /tb_registerfile/RF/phy_regfile(109) {-color Orange} /tb_registerfile/RF/phy_regfile(110) {-color Orange} /tb_registerfile/RF/phy_regfile(111) {-color Orange} /tb_registerfile/RF/phy_regfile(112) {-color Orange} /tb_registerfile/RF/phy_regfile(113) {-color Orange} /tb_registerfile/RF/phy_regfile(114) {-color Orange} /tb_registerfile/RF/phy_regfile(115) {-color Orange} /tb_registerfile/RF/phy_regfile(116) {-color Orange} /tb_registerfile/RF/phy_regfile(117) {-color Orange} /tb_registerfile/RF/phy_regfile(118) {-color Orange} /tb_registerfile/RF/phy_regfile(119) {-color Orange} /tb_registerfile/RF/phy_regfile(120) {-color Orange} /tb_registerfile/RF/phy_regfile(121) {-color Orange} /tb_registerfile/RF/phy_regfile(122) {-color Orange} /tb_registerfile/RF/phy_regfile(123) {-color Orange} /tb_registerfile/RF/phy_regfile(124) {-color Orange} /tb_registerfile/RF/phy_regfile(125) {-color Orange} /tb_registerfile/RF/phy_regfile(126) {-color Orange} /tb_registerfile/RF/phy_regfile(127) {-color Orange} /tb_registerfile/RF/phy_regfile(128) {-color Orange} /tb_registerfile/RF/phy_regfile(129) {-color Orange} /tb_registerfile/RF/phy_regfile(130) {-color Orange} /tb_registerfile/RF/phy_regfile(131) {-color Orange} /tb_registerfile/RF/phy_regfile(132) {-color Orange} /tb_registerfile/RF/phy_regfile(133) {-color Orange} /tb_registerfile/RF/phy_regfile(134) {-color Orange} /tb_registerfile/RF/phy_regfile(135) {-color Orange}} /tb_registerfile/RF/phy_regfile
+add wave -noupdate -divider {Write port}
+add wave -noupdate /tb_registerfile/WR_S
+add wave -noupdate -radix ufixed -childformat {{/tb_registerfile/ADD_WR_S(4) -radix ufixed} {/tb_registerfile/ADD_WR_S(3) -radix ufixed} {/tb_registerfile/ADD_WR_S(2) -radix ufixed} {/tb_registerfile/ADD_WR_S(1) -radix ufixed} {/tb_registerfile/ADD_WR_S(0) -radix ufixed}} -subitemconfig {/tb_registerfile/ADD_WR_S(4) {-radix ufixed} /tb_registerfile/ADD_WR_S(3) {-radix ufixed} /tb_registerfile/ADD_WR_S(2) {-radix ufixed} /tb_registerfile/ADD_WR_S(1) {-radix ufixed} /tb_registerfile/ADD_WR_S(0) {-radix ufixed}} /tb_registerfile/ADD_WR_S
+add wave -noupdate /tb_registerfile/DATAIN_S
+add wave -noupdate -divider {Read ports}
+add wave -noupdate /tb_registerfile/RD1_s
+add wave -noupdate -radix ufixed /tb_registerfile/ADD_RD1_S
+add wave -noupdate /tb_registerfile/OUT1_S
+add wave -noupdate /tb_registerfile/RD2_S
+add wave -noupdate -radix ufixed /tb_registerfile/ADD_RD2_S
+add wave -noupdate /tb_registerfile/OUT2_S
+add wave -noupdate -divider {Internal signals}
+add wave -noupdate -color Gray90 /tb_registerfile/RF/RF_state
+add wave -noupdate -radix ufixed -color {Sky Blue} /tb_registerfile/RF/SWP
+add wave -noupdate -radix ufixed -color {Forest Green} /tb_registerfile/RF/CWP
+add wave -noupdate -radix ufixed -color Gold /tb_registerfile/RF/old_CWP1
+add wave -noupdate -radix ufixed -color Gold /tb_registerfile/RF/old_CWP2
+add wave -noupdate -radix ufixed -color Gold /tb_registerfile/RF/old_CWP3
+add wave -noupdate -divider {Control signals}
+add wave -noupdate /tb_registerfile/CALL_S
+add wave -noupdate /tb_registerfile/RET_s
+add wave -noupdate /tb_registerfile/SPILL_s
+add wave -noupdate /tb_registerfile/FILL_S
+TreeUpdate [SetDefaultTree]
+WaveRestoreCursors {{Cursor 1} {1000 ps} 0}
+quietly wave cursor active 1
+configure wave -namecolwidth 213
+configure wave -valuecolwidth 100
+configure wave -justifyvalue left
+configure wave -signalnamewidth 0
+configure wave -snapdistance 10
+configure wave -datasetprefix 0
+configure wave -rowmargin 4
+configure wave -childrowmargin 2
+configure wave -gridoffset 0
+configure wave -gridperiod 1
+configure wave -griddelta 40
+configure wave -timeline 0
+configure wave -timelineunits ns
+update
+WaveRestoreZoom {0 ps} {9500 ps}
+
+run 30 ns

@@ -1,0 +1,52 @@
+#########################################################################################
+##
+##					DLX ARCHITECTURE - Custom Implementation (PRO version)
+##								Politecnico di Torino
+##						  Microelectronic Systems, A.Y. 2018/19
+##							  Prof. Mariagrazia Graziano
+##
+## Author: Sergio Mazzola
+## Contact: s.mazzola@outlook.com
+## 
+## File: testbenches\TEST-a.c-IRAM.sim
+## Date: September 2019
+## Brief: ModelSim script for Instruction Memory compilation and simulation
+##
+#########################################################################################
+
+set projDir {C:/Users/sergi/OneDrive - Politecnico di Torino/Documents/Università/Computer Engineering - PoliTo/Corsi/Microelectronic Systems/Laboratorio/DLX (Git)/dlx_project}
+set srcDir "${projDir}/src"
+set simDir "${projDir}/sim"
+
+vcom -reportprogress 300 -work work "${srcDir}/000-functions.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/001-globals.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.c-IRAM.vhd"
+vcom -reportprogress 300 -work work "${simDir}/testbenches/TEST-a.c-IRAM.vhd"
+vsim -t 100ps work.test_dlx_iram
+
+onerror {resume}
+quietly WaveActivateNextPane {} 0
+add wave -noupdate /dlx_iram_test/Reset
+add wave -noupdate /dlx_iram_test/Addr_s
+add wave -noupdate /dlx_iram_test/Dout_s
+add wave -noupdate -divider {Memory content}
+add wave -noupdate -color Orange -position end  sim:/dlx_iram_test/dut/IRAM_mem
+TreeUpdate [SetDefaultTree]
+WaveRestoreCursors {{Cursor 1} {16900 ps} 0}
+quietly wave cursor active 1
+configure wave -namecolwidth 251
+configure wave -valuecolwidth 100
+configure wave -justifyvalue left
+configure wave -signalnamewidth 0
+configure wave -snapdistance 10
+configure wave -datasetprefix 0
+configure wave -rowmargin 4
+configure wave -childrowmargin 2
+configure wave -gridoffset 0
+configure wave -gridperiod 1
+configure wave -griddelta 40
+configure wave -timeline 0
+configure wave -timelineunits ns
+update
+WaveRestoreZoom {0 ps} {18 ns}
+run 18 ns

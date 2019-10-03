@@ -1,0 +1,30 @@
+ 
+****************************************
+Report : area
+Design : DLX_ADDR_SIZE32_DATA_SIZE32_IR_SIZE32_OPC_SIZE6_REGADDR_SIZE5_STACKBUS_WIDTH4
+Version: F-2011.09-SP3
+Date   : Sun Sep 15 13:48:20 2019
+****************************************
+
+Information: Updating design information... (UID-85)
+Warning: Design 'DLX_ADDR_SIZE32_DATA_SIZE32_IR_SIZE32_OPC_SIZE6_REGADDR_SIZE5_STACKBUS_WIDTH4' contains 2 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+Library(s) Used:
+
+    NangateOpenCellLibrary (File: /home/mariagrazia.graziano/do/libnangate/NangateOpenCellLibrary_typical_ecsm.db)
+
+Number of ports:                          447
+Number of nets:                         52235
+Number of cells:                        50337
+Number of combinational cells:          44980
+Number of sequential cells:              5352
+Number of macros:                           0
+Number of buf/inv:                       6903
+Number of references:                      37
+
+Combinational area:       45859.198180
+Noncombinational area:    30730.183230
+Net Interconnect area:      undefined  (Wire load has zero net area)
+
+Total cell area:          76589.381411
+Total area:                 undefined
+1

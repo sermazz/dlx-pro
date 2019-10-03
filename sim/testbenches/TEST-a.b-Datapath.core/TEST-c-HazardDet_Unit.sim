@@ -1,0 +1,58 @@
+#########################################################################################
+##
+##					DLX ARCHITECTURE - Custom Implementation (PRO version)
+##								Politecnico di Torino
+##						  Microelectronic Systems, A.Y. 2018/19
+##							  Prof. Mariagrazia Graziano
+##
+## Author: Sergio Mazzola
+## Contact: s.mazzola@outlook.com
+## 
+## File: testbenches\TEST-a.b-Datapath.core\TEST-d-ALU.sim
+## Date: August 2019
+## Brief: ModelSim script for ALU compilation and simulation
+##
+#########################################################################################
+
+set projDir {C:/Users/sergi/OneDrive - Politecnico di Torino/Documents/Università/Computer Engineering - PoliTo/Corsi/Microelectronic Systems/Laboratorio/DLX (Git)/dlx_project}
+set srcDir "${projDir}/src"
+set simDir "${projDir}/sim"
+
+vcom -reportprogress 300 -work work "${srcDir}/000-functions.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/001-globals.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/c-HazardDet_Unit.vhd"
+vcom -reportprogress 300 -work work "${simDir}/testbenches/TEST-a.b-Datapath.core/TEST-c-HazardDet_Unit.vhd"
+vsim -t 100ps work.test_dlx_hdu
+
+onerror {resume}
+quietly WaveActivateNextPane {} 0
+add wave -noupdate /dlx_hdu_test/IR_IFID_s
+add wave -noupdate /dlx_hdu_test/IR_IDEX_s
+add wave -noupdate /dlx_hdu_test/IR_EXMEM_s
+add wave -noupdate /dlx_hdu_test/IR_MEMWB_s
+add wave -noupdate -divider Outputs
+add wave -noupdate -radix binary /dlx_hdu_test/ALU_inputA_MUX_s
+add wave -noupdate -radix binary /dlx_hdu_test/ALU_inputB_MUX_s
+add wave -noupdate -radix binary /dlx_hdu_test/B_latchEM_MUX_s
+add wave -noupdate -radix binary /dlx_hdu_test/WrIN_DRAM_MUX_s
+add wave -noupdate -radix binary /dlx_hdu_test/BJ_regA_MUX_s
+add wave -noupdate -color Orange -radix binary /dlx_hdu_test/STALL_s
+TreeUpdate [SetDefaultTree]
+WaveRestoreCursors {{Cursor 1} {1500 ps} 0}
+quietly wave cursor active 1
+configure wave -namecolwidth 214
+configure wave -valuecolwidth 100
+configure wave -justifyvalue left
+configure wave -signalnamewidth 0
+configure wave -snapdistance 10
+configure wave -datasetprefix 0
+configure wave -rowmargin 4
+configure wave -childrowmargin 2
+configure wave -gridoffset 0
+configure wave -gridperiod 1
+configure wave -griddelta 40
+configure wave -timeline 0
+configure wave -timelineunits ns
+update
+WaveRestoreZoom {0 ps} {15600 ps}
+run 15 ns

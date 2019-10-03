@@ -1,0 +1,79 @@
+Information: Updating design information... (UID-85)
+Warning: Design 'DLX_ADDR_SIZE32_DATA_SIZE32_IR_SIZE32_OPC_SIZE6_REGADDR_SIZE5_STACKBUS_WIDTH4' contains 2 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : DLX_ADDR_SIZE32_DATA_SIZE32_IR_SIZE32_OPC_SIZE6_REGADDR_SIZE5_STACKBUS_WIDTH4
+Version: F-2011.09-SP3
+Date   : Sat Sep 14 21:57:16 2019
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: typical   Library: NangateOpenCellLibrary
+Wire Load Model Mode: top
+
+  Startpoint: DLX_Datapath/PC_reg[1]
+              (rising edge-triggered flip-flop clocked by Clk)
+  Endpoint: DLX_Datapath/PC_reg[29]
+            (rising edge-triggered flip-flop clocked by Clk)
+  Path Group: Clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  DLX_ADDR_SIZE32_DATA_SIZE32_IR_SIZE32_OPC_SIZE6_REGADDR_SIZE5_STACKBUS_WIDTH4
+                     5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  clock Clk (rise edge)                    0.00       0.00
+  clock network delay (ideal)              0.05       0.05
+  DLX_Datapath/PC_reg[1]/CK (DFFR_X2)      0.00 #     0.05 r
+  DLX_Datapath/PC_reg[1]/QN (DFFR_X2)      0.09       0.14 r
+  U67734/ZN (NOR2_X1)                      0.02       0.16 f
+  U67733/ZN (NOR2_X1)                      0.06       0.22 r
+  U67732/ZN (NOR3_X1)                      0.03       0.25 f
+  U67731/ZN (AOI22_X1)                     0.05       0.30 r
+  U91440/ZN (NAND2_X1)                     0.03       0.34 f
+  U91284/ZN (NAND2_X1)                     0.03       0.37 r
+  U67722/ZN (AOI22_X1)                     0.03       0.40 f
+  U91266/ZN (AND2_X2)                      0.04       0.44 f
+  U91100/ZN (OR2_X1)                       0.06       0.50 f
+  U91276/ZN (AOI21_X1)                     0.05       0.55 r
+  U91278/ZN (NOR2_X1)                      0.02       0.57 f
+  U90722/ZN (OAI21_X1)                     0.05       0.62 r
+  U90585/ZN (NAND2_X1)                     0.03       0.65 f
+  U90586/ZN (INV_X1)                       0.03       0.68 r
+  U67595/ZN (AOI22_X1)                     0.03       0.71 f
+  U67594/ZN (OAI21_X1)                     0.04       0.75 r
+  U93585/ZN (NAND2_X1)                     0.04       0.79 f
+  U91289/ZN (NAND2_X1)                     0.04       0.83 r
+  U90683/ZN (INV_X1)                       0.02       0.85 f
+  U90681/ZN (AOI22_X1)                     0.08       0.93 r
+  U67541/ZN (AOI21_X1)                     0.03       0.96 f
+  U91345/ZN (OR2_X1)                       0.06       1.03 f
+  U91557/ZN (XNOR2_X1)                     0.06       1.09 f
+  U67537/ZN (AOI22_X1)                     0.05       1.13 r
+  U67536/ZN (NAND2_X1)                     0.03       1.16 f
+  U67533/ZN (OR2_X1)                       0.05       1.21 f
+  DLX_Datapath/PC_reg[29]/D (DFFR_X2)      0.01       1.22 f
+  data arrival time                                   1.22
+
+  clock Clk (rise edge)                    1.25       1.25
+  clock network delay (ideal)              0.05       1.30
+  clock uncertainty                       -0.05       1.25
+  DLX_Datapath/PC_reg[29]/CK (DFFR_X2)     0.00       1.25 r
+  library setup time                      -0.03       1.22
+  data required time                                  1.22
+  -----------------------------------------------------------
+  data required time                                  1.22
+  data arrival time                                  -1.22
+  -----------------------------------------------------------
+  slack (MET)                                         0.00
+
+
+1

@@ -1,0 +1,88 @@
+#########################################################################################
+##
+##					DLX ARCHITECTURE - Custom Implementation (PRO version)
+##								Politecnico di Torino
+##						  Microelectronic Systems, A.Y. 2018/19
+##							  Prof. Mariagrazia Graziano
+##
+## Author: Sergio Mazzola
+## Contact: s.mazzola@outlook.com
+## 
+## File: testbenches\TEST-a.a-CU_HW.sim
+## Date: September 2019
+## Brief: ModelSim script for Control Unit compilation and simulation
+##
+#########################################################################################
+
+set projDir {C:/Users/sergi/OneDrive - Politecnico di Torino/Documents/Università/Computer Engineering - PoliTo/Corsi/Microelectronic Systems/Laboratorio/DLX (Git)/dlx_project}
+set srcDir "${projDir}/src"
+set simDir "${projDir}/sim"
+
+vcom -reportprogress 300 -work work "${srcDir}/000-functions.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/001-globals.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.a-CU_HW.vhd"
+vcom -reportprogress 300 -work work "${simDir}/testbenches/TEST-a.a-CU_HW.vhd"
+
+vsim -t 100ps work.test_dlx_hwcu
+
+onerror {resume}
+quietly WaveActivateNextPane {} 0
+add wave -noupdate -radix binary /dlx_cu_test/Clock
+add wave -noupdate -radix binary /dlx_cu_test/Reset
+add wave -noupdate -radix hexadecimal /dlx_cu_test/IR_i
+add wave -noupdate -divider {}
+add wave -noupdate -radix binary /dlx_cu_test/stall_i
+add wave -noupdate -radix binary /dlx_cu_test/misprediction_i
+add wave -noupdate -divider IF
+add wave -noupdate -color {Orange Red} -radix binary /dlx_cu_test/MUXImmTA_SEL_i
+add wave -noupdate -color {Orange Red} -radix binary /dlx_cu_test/NPC_LATCH_IFID_EN_i
+add wave -noupdate -color {Orange Red} -radix binary /dlx_cu_test/TA_LATCH_IFID_EN_i
+add wave -noupdate -color {Orange Red} -radix binary /dlx_cu_test/PC_LATCH_IFID_EN_i
+add wave -noupdate -divider ID 
+add wave -noupdate -color {Green Yellow} -radix binary /dlx_cu_test/MUXImm_SEL_i 
+add wave -noupdate -color {Green Yellow} -radix binary /dlx_cu_test/RF_RD1EN_i 
+add wave -noupdate -color {Green Yellow} -radix binary /dlx_cu_test/RF_RD2EN_i 
+add wave -noupdate -color {Green Yellow} -radix binary /dlx_cu_test/RegA_LATCH_IDEX_EN_i
+add wave -noupdate -color {Green Yellow} -radix binary /dlx_cu_test/RegB_LATCH_IDEX_EN_i
+add wave -noupdate -color {Green Yellow} -radix binary /dlx_cu_test/RegIMM_LATCH_IDEX_EN_i
+add wave -noupdate -color {Green Yellow} -radix binary /dlx_cu_test/LPC_LATCH_IDEX_EN_i
+add wave -noupdate -color {Green Yellow} -radix binary /dlx_cu_test/RF_CALL_i            
+add wave -noupdate -color {Green Yellow} -radix binary /dlx_cu_test/RF_RET_i              
+add wave -noupdate -divider EX
+add wave -noupdate -color Orange -radix binary /dlx_cu_test/MUXB_SEL_i            
+add wave -noupdate -color Orange -radix binary /dlx_cu_test/ALUOUT_LATCH_EXMEM_EN_i
+add wave -noupdate -color Orange -radix binary /dlx_cu_test/RegB_LATCH_EXMEM_EN_i 
+add wave -noupdate -color Orange -radix binary /dlx_cu_test/LPC_LATCH_EXMEM_EN_i
+add wave -noupdate -color Orange /dlx_cu_test/ALU_OPCODE_i      
+add wave -noupdate -divider MEM
+add wave -noupdate -color {Cornflower Blue} -radix binary /dlx_cu_test/DRAM_WE_i
+add wave -noupdate -color {Cornflower Blue} -radix binary /dlx_cu_test/DRAM_RE_i            
+add wave -noupdate -color {Cornflower Blue} -radix binary /dlx_cu_test/DRAMOP_SEL_i          
+add wave -noupdate -color {Cornflower Blue} -radix binary /dlx_cu_test/MUXLPC_SEL_i           
+add wave -noupdate -color {Cornflower Blue} -radix binary /dlx_cu_test/MUXLMD_SEL_i           
+add wave -noupdate -color {Cornflower Blue} -radix binary /dlx_cu_test/LMD_LATCH_MEMWB_EN_i   
+add wave -noupdate -color {Cornflower Blue} -radix binary /dlx_cu_test/ALUOUT_LATCH_MEMWB_EN_i
+add wave -noupdate -color {Cornflower Blue} -radix binary /dlx_cu_test/LPC_LATCH_MEMWB_EN_i   
+add wave -noupdate -divider WB
+add wave -noupdate -color {Forest Green} -radix binary /dlx_cu_test/RF_WE_i
+add wave -noupdate -color {Forest Green} -radix binary /dlx_cu_test/MUXWrAddr_SEL_i
+add wave -noupdate -color {Forest Green} -radix binary /dlx_cu_test/MUXWB_SEL_i
+TreeUpdate [SetDefaultTree]
+WaveRestoreCursors {{Cursor 1} {10 ns} 0}
+quietly wave cursor active 1
+configure wave -namecolwidth 237
+configure wave -valuecolwidth 100
+configure wave -justifyvalue left
+configure wave -signalnamewidth 0
+configure wave -snapdistance 10
+configure wave -datasetprefix 0
+configure wave -rowmargin 4
+configure wave -childrowmargin 2
+configure wave -gridoffset 0
+configure wave -gridperiod 1
+configure wave -griddelta 40
+configure wave -timeline 0
+configure wave -timelineunits ns
+update
+WaveRestoreZoom {0 ns} {65 ns}
+run 64 ns

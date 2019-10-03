@@ -1,0 +1,111 @@
+#########################################################################################
+##
+##					DLX ARCHITECTURE - Custom Implementation (PRO version)
+##								Politecnico di Torino
+##						  Microelectronic Systems, A.Y. 2018/19
+##							  Prof. Mariagrazia Graziano
+##
+## Author: Sergio Mazzola
+## Contact: s.mazzola@outlook.com
+## 
+## File: testbenches\TEST-a.b-Datapath.core\TEST-d-ALU.sim
+## Date: August 2019
+## Brief: ModelSim script for ALU compilation and simulation
+##
+#########################################################################################
+
+set projDir {C:/Users/sergi/OneDrive - Politecnico di Torino/Documents/Università/Computer Engineering - PoliTo/Corsi/Microelectronic Systems/Laboratorio/DLX (Git)/dlx_project}
+set srcDir "${projDir}/src"
+set simDir "${projDir}/sim"
+
+vcom -reportprogress 300 -work work "${srcDir}/000-functions.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/001-globals.vhd"
+
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.core/a.a.a-smallPG.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.core/a.a-PGnetwork_gen.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.core/a.b-bigG.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.core/a.c-bigPG.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.core/a-CarryGenerator_gen.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.core/b.a.a-RCA_gen.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.core/b.a.b-mux2_gen.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.core/b.a-carrysel_gen.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.core/b-SumGenerator_gen.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.vhd"
+
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/d-ALU.core/000-inv_gen.vhd"
+
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/d-ALU.core/d-Multiplier.core/a-boothEnc_block.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/d-ALU.core/d-Multiplier.core/b-boothMuxCalc.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/d-ALU.core/d-Multiplier.core/c-mux5_gen.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/d-ALU.core/d-Multiplier.core/d.a-FA.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/d-ALU.core/d-Multiplier.core/d-CSA_gen.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/d-ALU.core/d-Multiplier.vhd"
+
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/d-ALU.core/c-Comparator.core/a-xor2_gen.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/d-ALU.core/c-Comparator.core/b-or2_gen.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/d-ALU.core/c-Comparator.core/c-and2_gen.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/d-ALU.core/c-Comparator.core/d-zeroDet_gen.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/d-ALU.core/c-Comparator.vhd"
+
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/d-ALU.core/b-Logicals.core/a-nand3_generic.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/d-ALU.core/b-Logicals.core/b-nand4_generic.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/d-ALU.core/b-Logicals.vhd"
+
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/d-ALU.core/a-Shifter.vhd"
+
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/d-ALU.vhd"
+vcom -reportprogress 300 -work work "${simDir}/testbenches/TEST-a.b-Datapath.core/TEST-d-ALU.vhd"
+
+vsim -t 100ps work.test_alu
+
+onerror {resume}
+quietly virtual signal -install /tb_alu/uut/ALU_comp { (context /tb_alu/uut/ALU_comp )(EQ & NE & LT & GT & LE & GE )} Out_comp
+quietly WaveActivateNextPane {} 0
+add wave -noupdate -radix ufixed /tb_alu/A_s
+add wave -noupdate -radix ufixed /tb_alu/B_s
+add wave -noupdate -color Red -radix binary /tb_alu/opcode_s
+add wave -noupdate -radix binary /tb_alu/Z_s
+add wave -noupdate -divider Adder
+add wave -noupdate -color {Pink} /tb_alu/uut/ALU_adder/A
+add wave -noupdate -color {Pink} /tb_alu/uut/ALU_adder/B
+add wave -noupdate -color {Pink} /tb_alu/uut/ALU_adder/Cin
+add wave -noupdate -color {Pink} /tb_alu/uut/ALU_adder/Sum
+add wave -noupdate -color {Pink} /tb_alu/uut/ALU_adder/Cout
+add wave -noupdate -divider Multiplier
+add wave -noupdate -color {Steel Blue} /tb_alu/uut/ALU_mult/A
+add wave -noupdate -color {Steel Blue} /tb_alu/uut/ALU_mult/B
+add wave -noupdate -color {Steel Blue} /tb_alu/uut/ALU_mult/Sum_out
+add wave -noupdate -color {Steel Blue} /tb_alu/uut/ALU_mult/Car_out
+add wave -noupdate -divider Comparator
+add wave -noupdate -color Goldenrod /tb_alu/uut/ALU_comp/Sum
+add wave -noupdate -color Goldenrod /tb_alu/uut/ALU_comp/Cout
+add wave -noupdate -color Goldenrod /tb_alu/uut/ALU_comp/Out_comp
+add wave -noupdate -divider Logicals
+add wave -noupdate -color {Medium Orchid} /tb_alu/uut/ALU_logicals/A
+add wave -noupdate -color {Medium Orchid} /tb_alu/uut/ALU_logicals/B
+add wave -noupdate -color {Medium Orchid} /tb_alu/uut/ALU_logicals/SEL
+add wave -noupdate -color {Medium Orchid} -radix binary /tb_alu/uut/ALU_logicals/Y
+add wave -noupdate -divider Shifter
+add wave -noupdate -color {Dark Green} -radix binary /tb_alu/uut/ALU_shift/A
+add wave -noupdate -color {Dark Green} -radix ufixed /tb_alu/uut/ALU_shift/B
+add wave -noupdate -color {Dark Green} /tb_alu/uut/ALU_shift/SEL
+add wave -noupdate -color {Dark Green} -radix binary /tb_alu/uut/ALU_shift/Y
+TreeUpdate [SetDefaultTree]
+WaveRestoreCursors {{Cursor 1} {8300 ps} 0}
+quietly wave cursor active 1
+configure wave -namecolwidth 213
+configure wave -valuecolwidth 100
+configure wave -justifyvalue left
+configure wave -signalnamewidth 0
+configure wave -snapdistance 10
+configure wave -datasetprefix 0
+configure wave -rowmargin 4
+configure wave -childrowmargin 2
+configure wave -gridoffset 0
+configure wave -gridperiod 1
+configure wave -griddelta 40
+configure wave -timeline 0
+configure wave -timelineunits ns
+update
+WaveRestoreZoom {5900 ps} {11300 ps}
+run 20 ns

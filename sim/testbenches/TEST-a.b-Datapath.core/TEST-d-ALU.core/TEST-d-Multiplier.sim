@@ -1,0 +1,52 @@
+#########################################################################################
+##
+##					DLX ARCHITECTURE - Custom Implementation (PRO version)
+##								Politecnico di Torino
+##						  Microelectronic Systems, A.Y. 2018/19
+##							  Prof. Mariagrazia Graziano
+##
+## Author: Sergio Mazzola
+## Contact: s.mazzola@outlook.com
+## 
+## File: testbenches\TEST-a.b-Datapath.core\TEST-d-ALU.core\TEST-d-Multiplier.sim
+## Date: August 2019
+## Brief: ModelSim script for CSA-based Booth Multiplier compilation and simulation
+##
+#########################################################################################
+
+set projDir {C:/Users/sergi/OneDrive - Politecnico di Torino/Documents/Università/Computer Engineering - PoliTo/Corsi/Microelectronic Systems/Laboratorio/DLX (Git)/dlx_project}
+set srcDir "${projDir}/src"
+set simDir "${projDir}/sim"
+
+vcom -reportprogress 300 -work work "${srcDir}/000-functions.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/001-globals.vhd"
+
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.core/a.a.a-smallPG.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.core/a.a-PGnetwork_gen.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.core/a.b-bigG.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.core/a.c-bigPG.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.core/a-CarryGenerator_gen.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.core/b.a.a-RCA_gen.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.core/b.a.b-mux2_gen.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.core/b.a-carrysel_gen.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.core/b-SumGenerator_gen.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.vhd"
+
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/d-ALU.core/d-Multiplier.core/a-boothEnc_block.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/d-ALU.core/d-Multiplier.core/b-boothMuxCalc.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/d-ALU.core/d-Multiplier.core/c-mux5_gen.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/d-ALU.core/d-Multiplier.core/d.a-FA.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/d-ALU.core/d-Multiplier.core/d-CSA_gen.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/d-ALU.core/d-Multiplier.vhd"
+
+vcom -reportprogress 300 -work work "${simDir}/testbenches/TEST-a.b-Datapath.core/TEST-d-ALU.core/TEST-d-Multiplier.vhd"
+
+vsim -t 100ps work.TEST_MULT_custom
+
+add wave -position end  sim:/tb_mult/A_s
+add wave -position end  sim:/tb_mult/B_s
+add wave -position end  sim:/tb_mult/Sum_s
+add wave -position end  sim:/tb_mult/Car_s
+add wave -position end  sim:/tb_mult/Y_s
+
+run 10 ns

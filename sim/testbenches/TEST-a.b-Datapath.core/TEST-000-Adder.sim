@@ -1,0 +1,65 @@
+#########################################################################################
+##
+##					DLX ARCHITECTURE - Custom Implementation (PRO version)
+##								Politecnico di Torino
+##						  Microelectronic Systems, A.Y. 2018/19
+##							  Prof. Mariagrazia Graziano
+##
+## Author: Sergio Mazzola
+## Contact: s.mazzola@outlook.com
+## 
+## File: testbenches\TEST-a.b-Datapath.core\TEST-000-Adder.sim
+## Date: August 2019
+## Brief: ModelSim script for P4 Adder compilation and simulation
+##
+#########################################################################################
+
+set projDir {C:/Users/sergi/OneDrive - Politecnico di Torino/Documents/Università/Computer Engineering - PoliTo/Corsi/Microelectronic Systems/Laboratorio/DLX (Git)/dlx_project}
+set srcDir "${projDir}/src"
+set simDir "${projDir}/sim"
+
+vcom -reportprogress 300 -work work "${srcDir}/000-functions.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.core/b.a.b-mux2_gen.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.core/a.a.a-smallPG.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.core/a.a-PGnetwork_gen.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.core/a.b-bigG.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.core/a.c-bigPG.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.core/a-CarryGenerator_gen.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.core/b.a.a-RCA_gen.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.core/b.a-carrysel_gen.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.core/b-SumGenerator_gen.vhd"
+vcom -reportprogress 300 -work work "${srcDir}/a.b-DataPath.core/000-Adder.vhd"
+vcom -reportprogress 300 -work work "${simDir}/testbenches/TEST-a.b-Datapath.core/TEST-000-Adder.vhd"
+
+vsim -t 100ps work.test_adder_complete
+
+onerror {resume}
+quietly WaveActivateNextPane {} 0
+add wave -noupdate -divider -height 25 INPUTS
+add wave -noupdate -format Literal -height 30 -label {A [hex]} -radix hexadecimal /tb_adders/a_s
+add wave -noupdate -format Literal -height 30 -label {B [hex]} -radix hexadecimal /tb_adders/b_s
+add wave -noupdate -format Logic -height 30 -label {C_in [bin]} -radix unsigned /tb_adders/ci_s
+add wave -noupdate -divider -height 25 OUTPUTS
+add wave -noupdate -color Gold -format Literal -height 30 -label {Sum RCA [hex]} -radix hexadecimal /tb_adders/s_rca
+add wave -noupdate -color Gold -format Logic -height 30 -label {C_out RCA [bin]} -radix unsigned /tb_adders/co_rca
+add wave -noupdate -color {Medium Slate Blue} -format Literal -height 30 -label {Sum P4 [hex]} -radix hexadecimal /tb_adders/s_p4
+add wave -noupdate -color {Medium Slate Blue} -format Logic -height 30 -label {C_out P4 [bin]} -radix unsigned /tb_adders/co_p4
+add wave -noupdate -format Literal -height 30 -label {Carry array [bin]} -radix binary /tb_adders/c_array
+TreeUpdate [SetDefaultTree]
+WaveRestoreCursors {{Cursor 1} {32920 ps} 0}
+configure wave -namecolwidth 170
+configure wave -valuecolwidth 64
+configure wave -justifyvalue left
+configure wave -signalnamewidth 0
+configure wave -snapdistance 10
+configure wave -datasetprefix 0
+configure wave -rowmargin 4
+configure wave -childrowmargin 2
+configure wave -gridoffset 0
+configure wave -gridperiod 1
+configure wave -griddelta 40
+configure wave -timeline 0
+configure wave -timelineunits ps
+update
+WaveRestoreZoom {0 ps} {6500 ps}
+run 6 ns
