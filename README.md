@@ -13,3 +13,23 @@ structural logic unit, structural general-purpose comparator, power-optimized AL
 address computation.
 
 For an extensive description of the DLX architecture and its functioning, refer to the report in the `docs` folder.
+
+## Files organization
+    .
+    ├── docs ........................ Documentation of the project
+    ├── libs ........................ Libraries which might not be included in ModelSim by default
+    │   ├── NangateOpenCellLibrary
+    │   └── vital2000
+    ├── phy ......................... Physical design directory
+    │   ├── outputs ................. Output of physical design: post-routing netlist, delay annotation
+    │   └── reports ................. Timing and parasitics reports, power analysis, ...
+    ├── script ...................... Custom assembler scripts for asm programs
+    │   └── assembler.bin
+    ├── sim ......................... Simulation directory, containing sim and post-syn sim scripts
+    │   ├── outputs ................. Output of simulations: switching activity annotations files
+    │   └── testbenches ............. All testbenches of the whole DLX and its individual modules
+    ├── src ......................... VHDL source files of the custom DLX
+    ├── syn ......................... Synthesis directory, containing synthesis and optimization scripts
+    │   ├── netlists ................ Output netlists of the various synthesis processes
+    │   └── reports ................. Timing, power and area reports of the various synthesized netlists
+    └── test ........................ Asm programs used for simulation purposes
